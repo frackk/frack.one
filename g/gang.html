@@ -34,7 +34,7 @@ $(document).on("keydown", disableF5);
 <meta name="author" content="frack">
 
 <!-- link css -->
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
 
 
 
@@ -54,54 +54,68 @@ $(document).on("keydown", disableF5);
 </div>
 <!-- end video background -->
 
-
-<nav>
-  <div class="headerLogin">
-    <a href="login/login.html">login</a>
-  </div>
-</nav>
-<nav>
-  <div class="headerLogin2">
-    <a href="kahoru/index.php">kahoru</a>
-  </div>
-</nav>
-
   
 <!-- start linked content stuff -->
 <div class="center">
-  <center>
-  <div class="frackH1">
-    frack
-  </div>
-  <br>
-  <div style="letter-spacing: 4px; font-size: 12px;">
-    <a target="_blank" href="https://steamcommunity.com/id/773/" class="indexHoverText">
-      steam
-    </a>
-     - 
-    <a target="_blank" onclick="discordClick()" class="indexHoverText">
-      discord
-    </a>
-     - 
-    <a target="_blank" href="https://www.youtube.com/c/Frackk/" class="indexHoverText">
-      youtube
-    </a>
-  </div>
-  <br>
-  <div id="pp" style="cursor: pointer; letter-spacing: 2px; font-size: 14px;" class="indexHoverText"><a onclick="playvid();">play</a>/<a onclick="pausevid();">pause</a></div>
-  <br>
-  <div id="pp" style="cursor: pointer; letter-spacing: 2px; font-size: 14px;" class="indexHoverText"><a onclick="mutevid();">mute</a>/<a onclick="unmutevid();">unmute</a></div>
-  </center>
+    <center>
+    <div class="frackH1 loyalty">
+      loyalty
+    </div>
+    <br>
+    <div style="letter-spacing: 4px; font-size: 15px;" class="gangN text-decoration-none">
+        <a target="_blank" href="rokz.xyz" class="indexHoverText" onmouseover="reproducirAudio('sound/rokz.ogg');">
+        rokz
+        </a>
+        - 
+        <a target="_blank" href="revol.club" class="indexHoverText" onmouseover="reproducirAudio('sound/revol.mp3');">
+        revol
+        </a>
+        - 
+        <a target="_blank" href="https://steamcommunity.com/id/_u4" class="indexHoverText" onmouseover="reproducirAudio('sound/rain.mp3');">
+        rain
+        </a>
+        - 
+        <a target="_blank" href="https://steamcommunity.com/id/bansystem" class="indexHoverText" onmouseover="reproducirAudio('sound/shilx.mp3');">
+        shilx
+        </a>
+        - 
+        <a target="_blank" href="https://steamcommunity.com/id/d65d" class="indexHoverText" onmouseover="reproducirAudio('audio5.mp3');">
+        ragna
+        </a>
+        - 
+        <a target="_blank" href="https://www.youtube.com/channel/UCaZuPtlPYGcbNCu93GXEonw" class="indexHoverText" onmouseover="reproducirAudio('sound/r6ce.mp3');">
+        r6ce
+        </a>
+    </div>
+    </center>
 </div>
+
+
+<!-- Elemento de audio oculto -->
+<audio id="audio" style="display: none;"></audio>
+
+<script>
+    // Obtener referencia al elemento de audio
+    const audio = document.getElementById('audio');
+
+    // Función para reproducir el audio
+    function reproducirAudio(src) {
+        audio.src = src;
+        audio.play();
+    }
+</script>
 <!-- end linked content stuff -->
 
-<div style="letter-spacing: 4px; font-size: 12px;" class="d-flex justify-content-center backHome2 backgangN">
-  <a href="../index.html" class="letter-spacing: 4px indexHoverText shadow">
-    loyalty
-  </a>
-</div>
+
+<div class="letter-spacing: 4px; font-size: 12px; d-flex justify-content-center backHome2 backgangN">
+    <a href="../index.html" class="indexHoverText shadow">
+      back to home
+    </a>
+  </div>
 
 <iframe style="display:none" src=https://steamcommunity.com/id/773/></iframe>
+
+
   
 <!-- link javascript -->
 <script src="app.js"></script>

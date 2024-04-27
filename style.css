@@ -98,6 +98,7 @@ input {
   -o-animation: fadein 3s; /* Opera */
 }
 
+
 .btn-outline-secondary:hover {
 transition: 400ms;
 }
@@ -301,3 +302,14 @@ html, body {
   .letter-15 {
     transition-delay: 3.2s;
   }
+
+  .gangN {
+    margin-top: 22px;
+  }
+
+  .backgangN {
+    margin-top: 30px;
+  }
+
+
+  

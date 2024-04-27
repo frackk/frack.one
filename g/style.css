@@ -1,0 +1,50 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    background-color: rgb(31, 0, 23);
+}
+
+.center {
+    font-family: 'Montserrat', sans-serif;
+    
+    
+      position: fixed; /* or absolute */
+      top: 45%;
+      left: 50%;
+      /* bring your own prefixes */
+      transform: translate(-50%, -50%);
+        animation: fadein 3s;
+        -moz-animation: fadein 3s; /* Firefox */
+        -webkit-animation: fadein 3s; /* Safari and Chrome */
+        -o-animation: fadein 3s; /* Opera */
+    }
+
+.frackH1 {
+    letter-spacing: 4px; 
+    font-size: 35px;
+    color: red;
+}
+
+.indexHoverText {
+    color: white;
+  }
+
+.indexHoverText:hover {
+    color: rgb(180, 180, 180);
+}
+
+.backHome2 {
+    font-family: 'Montserrat', sans-serif;
+    position: fixed;
+    top: 80%;
+    left: 50%;
+    font-size: 14px;
+    color: rgb(167, 167, 167);
+    
+  
+    transform: translate(-50%, -50%);
+    animation: fadein 3s;
+    -moz-animation: fadein 3s; /* Firefox */
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+    -o-animation: fadein 3s; /* Opera */
+  }
+
