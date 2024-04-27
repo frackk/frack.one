@@ -79,13 +79,13 @@ input {
 
 .frackH1 {
   letter-spacing: 4px; 
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .backHome2 {
   font-family: 'Montserrat', sans-serif;
   position: fixed;
-  top: 80%;
+  top: 85%;
   left: 50%;
   font-size: 14px;
   color: rgb(167, 167, 167);
@@ -103,6 +103,15 @@ input {
 transition: 400ms;
 }
 
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+
 .headerLogin {
   font-family: 'Montserrat', sans-serif;
   position: fixed;
@@ -117,8 +126,6 @@ transition: 400ms;
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
-  
-
   transform: translate(-50%, -50%);
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
@@ -137,8 +144,6 @@ transition: 400ms;
   text-decoration: none;
   color: white;
   transition: 400ms;
-  
-
   transform: translate(-50%, -50%);
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
@@ -160,8 +165,6 @@ transition: 400ms;
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
-  
-
   transform: translate(-50%, -50%);
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
@@ -180,8 +183,6 @@ transition: 400ms;
   text-decoration: none;
   color: white;
   transition: 400ms;
-  
-
   transform: translate(-50%, -50%);
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
@@ -189,6 +190,21 @@ transition: 400ms;
   -o-animation: fadein 3s; /* Opera */
 }
 
+@media (max-width: 1366px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .headerLogin{
+    margin-right: 0px;
+    margin-top: 10px;
+  }
+  .headerLogin2 {
+    margin-left: -25px;
+    margin-top: 10px;
+  }
+}
 
 .indexHoverText {
     color: white;
@@ -196,6 +212,7 @@ transition: 400ms;
 
 .indexHoverText:hover {
     color: rgb(180, 180, 180);
+    transition-duration: 0.25s;
 }
 
 
@@ -312,4 +329,19 @@ html, body {
   }
 
 
-  
+.indexButtons {
+  padding: 0px;
+  margin: 0px;
+  position: relative;
+  top: 40px;
+}
+
+.h1Custom {
+  text-decoration: none;
+  color: inherit;
+  cursor: default;
+}
+
+.h1Custom:hover {
+  cursor: default; 
+}
