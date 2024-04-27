@@ -61,7 +61,7 @@ function unmutevid() {
 // start discord notification toastr
 
 function discordClick() {
-    alert('frack#0001');
+    alert('xfrack / frack#0001');
 }
 
 
@@ -507,23 +507,24 @@ const getRandomArbitrary = (min, max) => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-    
+
 const youtubeUrl = videoId =>
-    `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&showinfo=0&rel=0&loop=1&enablejsapi=1&mute=1&amp;start=0`; allow="autoplay"
+    `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&showinfo=0&rel=0&loop=1&enablejsapi=1&mute=1&amp;start=0`; allow="autoplay"    
+
     
 const videoIds = [
     'bBL3CMvKp68',  // gucci polo
+    'WvV5TbJc9tQ',  // save that shit lp lp
+    'SWcALH_Sofw',  // 10percs sara ft miku
     'JzGjZl32f7A',  // japan drift nissan silvia s13
-    'GlrSs5N0fas'  // baraka witchouse 40k - amv kyoukai no kanata
-  
-  
+    
+  //'GlrSs5N0fas'  // baraka witchouse 40k - amv kyoukai no kanata
     /* 'HQvbw0nBeso',  //water
     'W7lGXireG7I',  //club
     'HOh-3lUPTx0',
-    'FfImsmupqG4' */
-  
-  
+    'FfImsmupqG4'*/ 
 ];
+
   
 const getRandomVideo = () => videoIds[getRandomArbitrary(0, videoIds.length - 1)];
   
