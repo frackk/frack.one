@@ -71,7 +71,23 @@ if ($pun_user['g_read_board'] == '0')
 if($sql['group_id'] != 4 &&  $iduser1 > $iduser12) 
 	
 	{
+	
 
+  
+  
+$client = new DiscordClient([
+        'token' => 'OTMwNjg5ODU0Mz3UyODEwMDM2.GDwd0Z.ZxN0sORQuv16IhT4QuW9gLNsZifda9fhup_Rs' //discord token
+      ]);
+	  
+	 // $acceptedRoles = ["Premium User"];
+		$client->guild->addGuildMember([
+			'guild.id' => 947880898945253376, //discord server id
+			'user.id' => (int)$discord_id,
+			'access_token' => (string)$token,
+			'nick' => $sessionuser,
+			'roles' => array(951719010490326124) //discord roles
+			//'roles' => 452883032576098335, 'name' => 'Premium user', 'color' => 16729413, 'hoist' => true, 'managed' => false, 'mentionable' => true, 'position' => 6, 'permissions' => 37080128)
+		]);
 		
 		
 		
