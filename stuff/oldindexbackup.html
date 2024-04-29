@@ -28,11 +28,7 @@ $(document).on("keydown", disableF5);
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
 <!-- link icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-<!-- svg bstrap -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<!-- end svg bstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> 
 
 <!-- meta links -->
 <meta charset="UTF-8">
@@ -41,7 +37,7 @@ $(document).on("keydown", disableF5);
 <meta name="author" content="frack">
 
 <!-- link css -->
-<link rel="stylesheet" href="stylez.css">
+<link rel="stylesheet" href="style.css">
 
 
 
@@ -64,7 +60,7 @@ $(document).on("keydown", disableF5);
 <!-- nav -->
 <nav>
   <div class="headerLogin">
-    <a href="./database/login.html">login</a>
+    <a href="login/login.html">login</a>
   </div>
 </nav>
 <nav>
@@ -74,71 +70,39 @@ $(document).on("keydown", disableF5);
 </nav>
 <!-- end nav -->
 
-
+  
 <!-- start linked content stuff -->
 <div class="center">
   <center>
-  <div class="frackH1 h1Custom">
-    <a href="./kaho/kahoru.html">
-      frack
+  <div class="frackH1">
+    frack
+  </div>
+  <br>
+  <div style="letter-spacing: 4px; font-size: 12px;">
+    <a target="_blank" href="https://steamcommunity.com/id/773/" class="indexHoverText">
+      steam
+    </a>
+     - 
+    <a target="_blank" onclick="discordClick()" class="indexHoverText">
+      discord
+    </a>
+     - 
+    <a target="_blank" href="https://www.youtube.com/c/Frackk/" class="indexHoverText">
+      youtube
     </a>
   </div>
   <br>
-  <div style="letter-spacing: 10px; font-size: 30px;" class="social-icons indexLinks">
-    <a target="_blank" href="https://steamcommunity.com/id/773/" class="indexHoverText">
-      <!-- steam -->
-      <i class="fab fa-steam"></i>
-    </a>
-    <a target="_blank" href="https://www.instagram.com/notfrack/" class="indexHoverText">
-      <!-- instagram -->
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a target="_blank" onclick="discordClick()" class="indexHoverText">
-      <!-- discord -->
-      <i class="bi bi-discord"></i>
-    </a>
-    <a target="_blank" href="https://www.youtube.com/c/Frackk/" class="indexHoverText"">
-      <!-- youtube -->
-      <i class="fab fa-youtube"></i>
-    </a>
-    <a target="_blank" href="https://open.spotify.com/user/franalbertario?si=dc9dd76da730450b" class="indexHoverText"">
-      <!-- spotify -->
-      <i class="fab fa-spotify"></i>
-    </a>
-    <br>
-  </div>
-  <div class="indexSpace"></div>
-    <div id="pp" style="cursor: pointer; letter-spacing: 5px; font-size: 20px;" class="indexButtons">
-      <a onclick="playvid();">
-        <!-- play button -->
-        <i class="bi bi-play-fill indexHoverText"></i>
-      </a>
-      /
-      <a onclick="pausevid();">
-        <!-- resume button -->
-        <i class="bi bi-pause-fill indexHoverText"></i>
-      </a>
-    </div>
-    <br>
-    <div id="pp" style="cursor: pointer; letter-spacing: 5px; font-size: 20px;" class="indexButtons">
-      <a onclick="mutevid();">
-        <!-- mute button -->
-        <i class="bi bi-volume-mute-fill indexHoverText"></i>
-      </a>
-      /
-      <a onclick="unmutevid();">
-        <!-- unmute button -->
-        <i class="bi bi-volume-up-fill indexHoverText"></i>
-      </a>
-    </div>
-    </center>
+  <div id="pp" style="cursor: pointer; letter-spacing: 2px; font-size: 14px;" class="indexHoverText"><a onclick="playvid();">play</a>/<a onclick="pausevid();">pause</a></div>
+  <br>
+  <div id="pp" style="cursor: pointer; letter-spacing: 2px; font-size: 14px;" class="indexHoverText"><a onclick="mutevid();">mute</a>/<a onclick="unmutevid();">unmute</a></div>
+  </center>
 </div>
 <!-- end linked content stuff -->
 
 
 <!-- loyalty -->
 <div style="letter-spacing: 4px; font-size: 12px;" class="d-flex justify-content-center backHome2 backgangN">
-  <a href="./g/loyality.html" class="letter-spacing: 4px indexHoverText shadow">
+  <a href="./g/gang.html" class="letter-spacing: 4px indexHoverText shadow">
     loyalty
   </a>
 </div>
@@ -154,5 +118,6 @@ $(document).on("keydown", disableF5);
 
 </body>
 <!-- end body -->
+
 
 </html>
