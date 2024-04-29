@@ -113,16 +113,11 @@ nav {
 
 
 .headerLogin {
-  font-family: 'Montserrat', sans-serif;
   position: fixed;
-  top: 3%;
-  left: 96%;
-  font-size: 16px;
+  top: 4.2%;
+  left: 97%;
+  font-size: 26px;
   color: rgb(255, 255, 255);
-  border-style: solid;
-  border-radius: 12%;
-  border-color: rgb(167, 167, 167);
-  border-width: 2px;
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
@@ -134,16 +129,13 @@ nav {
 }
 
 .headerLogin:hover {
-  font-family: 'Montserrat', sans-serif;
   position: fixed;
-  top: 3%;
-  left: 96%;
-  font-size: 16px;
-  background-color: rgb(108, 117, 125);
-  border-color: rgb(108, 117, 125);
+  top: 4.2%;
+  left: 97%;
+  font-size: 26px;
   text-decoration: none;
   color: white;
-  transition: 400ms;
+  transition: 200ms;
   transform: translate(-50%, -50%);
   animation: fadein 3s;
   -moz-animation: fadein 3s; /* Firefox */
@@ -152,16 +144,11 @@ nav {
 }
 
 .headerLogin2 {
-  font-family: 'Montserrat', sans-serif;
   position: fixed;
-  top: 3%;
-  left: 92%;
-  font-size: 16px;
+  top: 4.2%;
+  left: 93.5%;
+  font-size: 26px;
   color: rgb(255, 255, 255);
-  border-style: solid;
-  border-radius: 12%;
-  border-color: rgb(167, 167, 167);
-  border-width: 2px;
   padding: 4px;
   padding-left: 8px;
   padding-right: 8px;
@@ -173,13 +160,10 @@ nav {
 }
 
 .headerLogin2:hover {
-  font-family: 'Montserrat', sans-serif;
   position: fixed;
-  top: 3%;
-  left: 92%;
-  font-size: 16px;
-  background-color: rgb(108, 117, 125);
-  border-color: rgb(108, 117, 125);
+  top: 4.2%;
+  left: 93.5%;
+  font-size: 26px;
   text-decoration: none;
   color: white;
   transition: 400ms;
