@@ -54,11 +54,13 @@ $(document).on("keydown", disableF5);
 <body oncontextmenu="return false;" unselectable="on" onselectstart="return false;">
 
 <!-- start video background-->
-<div class="video-background">
-  <div class="video-foreground">
-    <iframe id="video" src="https://www.youtube.com/embed/UVoXbAPY8Dk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&enablejsapi=1&mute=1&amp;start=0" frameborder="0" allow="autoplay; fullscreen"></iframe>
-  </div>                                                              
-</div>
+<div id="video-bgcontainer">
+  <div class="video-background">
+    <div class="video-foreground">
+      <iframe id="video" src="https://www.youtube.com/embed/UVoXbAPY8Dk?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&enablejsapi=1&mute=1&amp;start=0" frameborder="0" allow="autoplay; fullscreen"></iframe>
+    </div>                                                              
+  </div>
+</div>  
 <!-- end video background -->
 
 <!-- nav -->
@@ -82,60 +84,50 @@ $(document).on("keydown", disableF5);
 <!-- start linked content stuff -->
 <div class="center">
   <center>
-  <div class="frackH1 h1Custom">
-    <a href="./kaho/kahoru.html">
-      frack
-    </a>
-  </div>
-  <br>
-  <div style="letter-spacing: 10px; font-size: 30px;" class="social-icons indexLinks">
-    <a target="_blank" href="https://steamcommunity.com/id/773/" class="indexHoverText">
-      <!-- steam -->
-      <i class="fab fa-steam"></i>
-    </a>
-    <a target="_blank" href="https://www.instagram.com/notfrack/" class="indexHoverText">
-      <!-- instagram -->
-      <i class="fab fa-instagram"></i>
-    </a>
-    <a target="_blank" onclick="discordClick()" class="indexHoverText">
-      <!-- discord -->
-      <i class="bi bi-discord"></i>
-    </a>
-    <a target="_blank" href="https://www.youtube.com/c/Frackk/" class="indexHoverText"">
-      <!-- youtube -->
-      <i class="fab fa-youtube"></i>
-    </a>
-    <a target="_blank" href="https://open.spotify.com/user/franalbertario?si=dc9dd76da730450b" class="indexHoverText"">
-      <!-- spotify -->
-      <i class="fab fa-spotify"></i>
-    </a>
-    <br>
-  </div>
-  <div class="indexSpace"></div>
-    <div id="pp" style="cursor: pointer; letter-spacing: 5px; font-size: 20px;" class="indexButtons">
-      <a onclick="playvid();">
-        <!-- play button -->
-        <i class="bi bi-play-fill indexHoverText"></i>
-      </a>
-      /
-      <a onclick="pausevid();">
-        <!-- resume button -->
-        <i class="bi bi-pause-fill indexHoverText"></i>
+    <div class="frackH1 h1Custom">
+      <a href="./kaho/kahoru.html">
+        frack
       </a>
     </div>
     <br>
-    <div id="pp" style="cursor: pointer; letter-spacing: 5px; font-size: 20px;" class="indexButtons">
-      <a onclick="mutevid();">
-        <!-- mute button -->
-        <i class="bi bi-volume-mute-fill indexHoverText"></i>
+    <div style="letter-spacing: 10px; font-size: 30px;" class="social-icons indexLinks">
+      <a target="_blank" href="https://steamcommunity.com/id/773/" class="indexHoverText">
+        <!-- steam -->
+        <i class="fab fa-steam"></i>
       </a>
-      /
-      <a onclick="unmutevid();">
-        <!-- unmute button -->
-        <i class="bi bi-volume-up-fill indexHoverText"></i>
+      <a target="_blank" href="https://www.instagram.com/notfrack/" class="indexHoverText">
+        <!-- instagram -->
+        <i class="fab fa-instagram"></i>
       </a>
+      <a target="_blank" onclick="discordClick()" class="indexHoverText">
+        <!-- discord -->
+        <i class="bi bi-discord"></i>
+      </a>
+      <a target="_blank" href="https://www.youtube.com/c/Frackk/" class="indexHoverText"">
+        <!-- youtube -->
+        <i class="fab fa-youtube"></i>
+      </a>
+      <a target="_blank" href="https://open.spotify.com/user/franalbertario?si=dc9dd76da730450b" class="indexHoverText"">
+        <!-- spotify -->
+        <i class="fab fa-spotify"></i>
+      </a>
+      <br>
     </div>
-    </center>
+    <div class="indexSpace"></div>
+        
+      <!-- Play/Pause Button -->
+      <div id="pp" style="cursor: pointer; letter-spacing: 5px; font-size: 20px;" class="indexButtons">
+        <a onclick="togglePlayPause();">
+            <!-- botón de play/pause -->
+            <i id="playPauseIcon" class="bi bi-pause-fill indexHoverText"></i>
+        </a>
+        /
+        <a onclick="toggleMute();">
+            <!-- botón de mute/volumen -->
+            <i id="muteVolumeIcon" class="bi bi-volume-mute-fill indexHoverText"></i>
+        </a>
+    </div>    
+  </center>
 </div>
 <!-- end linked content stuff -->
 

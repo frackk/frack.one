@@ -53,6 +53,36 @@ function unmutevid() {
 }
 	  
 
+var isPlaying = true; // Indica si el video está reproduciéndose
+
+function togglePlayPause() {
+    if (isPlaying) {
+        pausevid();
+        document.getElementById('playPauseIcon').classList.remove('bi-pause-fill');
+        document.getElementById('playPauseIcon').classList.add('bi-play-fill');
+    } else {
+        playvid();
+        document.getElementById('playPauseIcon').classList.remove('bi-play-fill');
+        document.getElementById('playPauseIcon').classList.add('bi-pause-fill');
+    }
+    isPlaying = !isPlaying;
+}
+
+var isMuted = true; // Indica si el video está silenciado
+
+function toggleMute() {
+    if (isMuted) {
+        unmutevid();
+        document.getElementById('muteVolumeIcon').classList.remove('bi-volume-mute-fill');
+        document.getElementById('muteVolumeIcon').classList.add('bi-volume-up-fill');
+    } else {
+        mutevid();
+        document.getElementById('muteVolumeIcon').classList.remove('bi-volume-up-fill');
+        document.getElementById('muteVolumeIcon').classList.add('bi-volume-mute-fill');
+    }
+    isMuted = !isMuted;
+}
+
 // end iframe youtube code load
 
 
