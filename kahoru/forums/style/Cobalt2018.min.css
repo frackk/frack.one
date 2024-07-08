@@ -316,7 +316,7 @@ html, body {
 	}
 
 #brdtitle h1 a span {
-	color: #D020FF;
+	color: #e585ff;
 	}
 
 #brdmenu li {
@@ -502,7 +502,7 @@ html, body {
 	}
 
 .pun .tcl h3 a:hover {
-	color: #b4e61e;
+	color: #e585ff;
 }
 
 .pun .tcl h3 span.newtext {
@@ -1033,7 +1033,7 @@ html, body {
 .pun .inbox thead .tc2,
 .pun .inbox thead .tc3,
 .pun .inbox thead .tcr {
-	border-bottom: 1px solid #D020FF;
+	border-bottom: 1px solid #e585ff;
 	}
 
 /*****************************************************************
