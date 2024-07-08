@@ -19,7 +19,7 @@
 <div id="brdheader" class="block">
 	<div class="box">
 		<div id="brdtitle" class="inbox">
-			<h1><a href="index.php">game<span>sense</span></a></h1>
+			<h1><a href="index.php">ka<span>horu</span></a></h1>
 		</div>
 		<pun_navlinks>
 		<pun_status>
@@ -35,7 +35,7 @@
 <div id="brdfooter" class="block">
 	<div class="box">
 		<div class="inbox">
-			<p>GameSense 2022</p>
+			<p>frack.one | kahoru</p>
 			<ul>
 				<li><span><a href="tos.php">Terms and Conditions / Privacy policy</a></span></li>
 			</ul>
