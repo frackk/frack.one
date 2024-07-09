@@ -98,7 +98,7 @@ if($_POST['redirect'] == "forums"){
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="/static/scrollreveal.min.js"></script>
 
-	<title>GameSense</title>
+	<title>kahoru</title>
 	<script type="text/javascript">
 	window.onload=function() {
   document.getElementById('form1').submit();

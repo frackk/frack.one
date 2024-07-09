@@ -240,7 +240,7 @@ else
 // New PMS
 	
 	if($pun_user['g_id'] == 4){
-	 $links[] = '<li id="premium"'.((PUN_ACTIVE_PAGE == 'premium') ? ' class="isactive"' : '').'><a class="usergroup-1" href="payment.php?game=csgo">Buy GameSense</a></li>';
+	 $links[] = '<li id="premium"'.((PUN_ACTIVE_PAGE == 'premium') ? ' class="isactive"' : '').'><a class="usergroup-1" href="payment.php?game=csgo">Buy kahoru</a></li>';
 	}
 	else{
 		$links[] = '<li id="premium"'.((PUN_ACTIVE_PAGE == 'premium') ? ' class="isactive"' : '').'><a class="usergroup-5" href="profile.php?section=premium&amp;id='.$pun_user['id'].'">Premium</a></li>';

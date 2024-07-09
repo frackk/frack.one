@@ -1,5 +1,5 @@
 <head>
-<title>Payment / GameSense</title>
+<title>Payment / kahoru</title>
 <link rel="stylesheet" type="text/css" href="style/Cobalt1.min.css?v=31" />
 <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" />
 <link href="https://fonts.googleapis.com/css?family=Raleway:900,400" rel="stylesheet" type="text/css" />
@@ -28,11 +28,11 @@ $myid2 = $pun_user['email'];
 <div class="blockform">
 	<?php 
 	if($pun_user['g_id'] == 4){
-		echo "<h2><span>Buy GameSense</span></h2>";
+		echo "<h2><span>Buy kahoru</span></h2>";
 	}
 	else
 	{	
-		echo "<h2><span>Extend GameSense</span></h2>";
+		echo "<h2><span>Extend kahoru</span></h2>";
 	}
 	?>
 	<div class="box">
@@ -135,7 +135,7 @@ $myid2 = $pun_user['email'];
 					<div class="inform">
 						<fieldset>
 							<div class="fakeform">
-								<p>All sensitive cardholder data is transmitted directly through our payment processor using TLS. GameSense is fully compliant with the <a href="https://www.pcisecuritystandards.org/pci_security/" target="_blank">PCI Data Security Standards</a>.</p>
+								<p>All sensitive cardholder data is transmitted directly through our payment processor using TLS. kahoru is fully compliant with the <a href="https://www.pcisecuritystandards.org/pci_security/" target="_blank">PCI Data Security Standards</a>.</p>
 								<table class="aligntop">
 									<tbody>
 										<tr>
