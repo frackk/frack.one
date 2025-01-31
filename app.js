@@ -547,6 +547,7 @@ const videoIds = [
     'WvV5TbJc9tQ',  // save that shit lp lp
     'SWcALH_Sofw',  // 10percs sara ft miku
     'JzGjZl32f7A',  // japan drift nissan silvia s13
+    'ZlnLvLDP4Zg',  // eurovision central cee
     
   //'GlrSs5N0fas'  // baraka witchouse 40k - amv kyoukai no kanata
     /* 'HQvbw0nBeso',  //water
