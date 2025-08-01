@@ -1,40 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>snake</title>
-  <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="left">
-      <div id="score">combo x0</div>
-      <div id="highscore">highest combo: x0</div>
-      <canvas id="game" width="600" height="600"></canvas>
+    <div id="overlay">
+        <div class="overlay-content">
+            <input type="text" id="nicknameInput" placeholder="Enter your nickname" maxlength="20">
+            <button onclick="startGame()">Start</button>
+        </div>
     </div>
-    <div class="scoreboard">
-      <h3>top players</h3>
-      <ol id="ranking"></ol>
+    <div class="container">
+        <div class="info">
+            <p>combo x<span id="combo">0</span></p>
+            <p>highest combo: x<span id="highCombo">0</span></p>
+        </div>
+        <canvas id="gameCanvas" width="500" height="500"></canvas>
+        <div class="right-panel">
+            <h4>top players</h4>
+            <div id="ranking"></div>
+            <a href="/" class="back-home">back home</a>
+        </div>
     </div>
-  </div>
-  <a href="https://frack.one" class="back-home">back home</a>
-
-  <div id="name-modal" class="modal">
-    <div class="modal-content">
-      <label for="player-name">your nickname:</label>
-      <input type="text" id="player-name" maxlength="12" />
-      <button onclick="setNickname()">start</button>
-    </div>
-  </div>
-  <script src="js/game.js"></script>
-  <script>
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) || (e.ctrlKey && e.key === 'u')) {
-        e.preventDefault();
-        return false;
-      }
-    });
-  </script>
+    <script src="js/game.js"></script>
 </body>
 </html>

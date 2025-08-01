@@ -1,20 +1,18 @@
-
 <?php
-$host = 'localhost';
-$db = 'snake_scores';
-$user = 'tu_usuario_mysql';
-$pass = 'tu_contraseña_mysql';
+$host = "localhost";
+$dbname = "u917152523_kahoru";
+$username = "u917152523_admin";
+$password = "^eE0Vc2#";
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
-}
+$conn = new mysqli($host, $username, $password, $dbname);
 
-$sql = "SELECT name, score, date FROM scores ORDER BY score DESC LIMIT 10";
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$sql = "SELECT nickname, score, date FROM scores ORDER BY score DESC, id ASC LIMIT 10";
 $result = $conn->query($sql);
 
 $scores = array();
-while($row = $result->fetch_assoc()) {
+while ($row = $result->fetch_assoc()) {
     $scores[] = $row;
 }
 echo json_encode($scores);

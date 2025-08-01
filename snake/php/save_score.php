@@ -1,21 +1,19 @@
-
 <?php
-$host = 'localhost';
-$db = 'snake_scores';
-$user = 'tu_usuario_mysql';
-$pass = 'tu_contraseña_mysql';
+$host = "localhost";
+$dbname = "u917152523_kahoru";
+$username = "u917152523_admin";
+$password = "^eE0Vc2#";
 
-$conn = new mysqli($host, $user, $pass, $db);
-if ($conn->connect_error) {
-    die("connection failed: " . $conn->connect_error);
-}
+$conn = new mysqli($host, $username, $password, $dbname);
 
-$name = $_POST['name'];
-$score = $_POST['score'];
-$date = date('Y-m-d');
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
-$stmt = $conn->prepare("INSERT INTO scores (name, score, date) VALUES (?, ?, ?)");
-$stmt->bind_param("sis", $name, $score, $date);
+$nickname = $_POST['nickname'];
+$score = intval($_POST['score']);
+$date = date("d/m/y");
+
+$stmt = $conn->prepare("INSERT INTO scores (nickname, score, date) VALUES (?, ?, ?)");
+$stmt->bind_param("sis", $nickname, $score, $date);
 $stmt->execute();
 $stmt->close();
 $conn->close();
