@@ -199,3 +199,6 @@ window.addEventListener("keyup", (e) => {
     interval = setInterval(loop, speed);
   }
 });
+
+
+document.getElementById("start-btn").addEventListener("click", setNickname);
