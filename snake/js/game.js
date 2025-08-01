@@ -243,3 +243,19 @@ window.addEventListener("keyup", (e) => {
     interval = setInterval(loop, speed);
   }
 });
+
+
+// add event listener to start button
+document.getElementById("startBtn").addEventListener("click", () => {
+  const input = document.getElementById("nameInput");
+  const nickname = input.value.trim().slice(0, 12);
+
+  if (nickname.length === 0) return;
+
+  player = nickname;
+  localStorage.setItem("nickname", player);
+
+  document.getElementById("startScreen").style.display = "none";
+
+  start();
+});
