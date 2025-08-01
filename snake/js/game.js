@@ -243,4 +243,3 @@ window.addEventListener("keyup", (e) => {
     interval = setInterval(loop, speed);
   }
 });
-// asd
