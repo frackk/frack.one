@@ -1,40 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>snake</title>
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="left">
-      <div id="score">combo x0</div>
-      <div id="highscore">highest combo: x0</div>
-      <canvas id="game" width="600" height="600"></canvas>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>snake</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="game" width="400" height="400"></canvas>
+      <div class="scoreboard">
+        <h3>top 10</h3>
+        <ul id="ranking"></ul>
+        <div class="back-home">
+          <a href="/" target="_self">back home</a>
+        </div>
+      </div>
     </div>
-    <div class="scoreboard">
-      <h3>top players</h3>
-      <ol id="ranking"></ol>
-    </div>
-  </div>
-  <a href="https://frack.one" class="back-home">back home</a>
 
-  <div id="name-modal" class="modal">
-    <div class="modal-content">
-      <label for="player-name">your nickname:</label>
-      <input type="text" id="player-name" maxlength="12" />
-      <button onclick="setNickname()">start</button>
+    <div id="startScreen" class="start-screen">
+      <div class="start-box">
+        <label for="nickname">your nickname:</label>
+        <input type="text" id="nickname" maxlength="12" autofocus>
+        <button id="startButton">start</button>
+      </div>
     </div>
-  </div>
-  <script src="js/game.js"></script>
-  <script>
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) || (e.ctrlKey && e.key === 'u')) {
-        e.preventDefault();
-        return false;
-      }
-    });
-  </script>
-</body>
+
+    <script type="module" src="js/game.js"></script>
+  </body>
 </html>
