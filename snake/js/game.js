@@ -1,3 +1,47 @@
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxOiDOhHc14-7mz6K8tZD-L2M-yNEDnvs",
+  authDomain: "snake-frack-one.firebaseapp.com",
+  projectId: "snake-frack-one",
+  storageBucket: "snake-frack-one.firebasestorage.app",
+  messagingSenderId: "429155382978",
+  appId: "1:429155382978:web:16f740d28fdd2de8fd6d5b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// save score to firestore
+async function saveScore(nick, score) {
+  try {
+    const today = new Date();
+    const dateStr = today.toLocaleDateString('en-GB'); // dd/mm/yyyy
+    await addDoc(collection(db, "scores"), {
+      nick,
+      score,
+      date: dateStr,
+      timestamp: today.getTime()
+    });
+  } catch (e) {
+    console.error("error adding score: ", e);
+  }
+}
+
+// get top 10 scores from firestore
+async function getTopScores() {
+  const scoresRef = collection(db, "scores");
+  const q = query(scoresRef, orderBy("score", "desc"), orderBy("timestamp", "asc"), limit(10));
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map(doc => doc.data());
+}
+
+window.saveScore = saveScore;
+window.getTopScores = getTopScores;
+
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const scoreDisplay = document.getElementById("score");
@@ -199,6 +243,3 @@ window.addEventListener("keyup", (e) => {
     interval = setInterval(loop, speed);
   }
 });
-
-
-document.getElementById("start-btn").addEventListener("click", setNickname);
