@@ -1,150 +1,201 @@
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAxOiDOhHc14-7mz6K8tZD-L2M-yNEDnvs",
-  authDomain: "snake-frack-one.firebaseapp.com",
-  projectId: "snake-frack-one",
-  storageBucket: "snake-frack-one.appspot.com",
-  messagingSenderId: "429155382978",
-  appId: "1:429155382978:web:16f740d28fdd2de8fd6d5b"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const canvas = document.getElementById("gameCanvas");
+const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const comboEl = document.getElementById("combo");
-const highComboEl = document.getElementById("highCombo");
-const rankingEl = document.getElementById("ranking");
-const startScreen = document.getElementById("startScreen");
-const nicknameInput = document.getElementById("nickname");
+const scoreDisplay = document.getElementById("score");
+const highscoreDisplay = document.getElementById("highscore");
+const modal = document.getElementById("name-modal");
+const input = document.getElementById("player-name");
+const ranking = document.getElementById("ranking");
 
-let snake, dx, dy, food, speed, nickname, combo, highCombo = 0, gameOver;
-let gridSize = 20;
-let tileCount = canvas.width / gridSize;
+const grid = 20;
+const count = canvas.width / grid;
+let snake = [];
+let velocity = { x: 0, y: 0 };
+let nextVelocity = { x: 0, y: 0 };
+let food;
+let foodTimer;
+let score = 0;
+let highscore = 0;
+let baseSpeed = 90;
+let speed = baseSpeed;
+let player = "";
+let interval;
+let started = false;
+let isAccelerating = false;
+let topScores = [];
 
-function resetGame() {
-  snake = [{ x: 10, y: 10 }];
-  dx = 0; dy = 0;
-  food = randomFood();
-  combo = 0;
-  speed = 200;
-  gameOver = false;
-  updateUI();
+function setNickname() {
+  player = input.value.trim() || "player";
+  modal.style.display = "none";
+  start();
 }
 
-function randomFood() {
-  let pos;
+function spawnFood() {
+  let newFood;
   do {
-    pos = {
-      x: Math.floor(Math.random() * tileCount),
-      y: Math.floor(Math.random() * tileCount)
+    newFood = {
+      x: Math.floor(Math.random() * count),
+      y: Math.floor(Math.random() * count),
     };
-  } while (snake.some(s => s.x === pos.x && s.y === pos.y));
-  return pos;
+  } while (snake.some((s) => s.x === newFood.x && s.y === newFood.y));
+  return newFood;
 }
 
-function updateUI() {
-  comboEl.textContent = "x" + combo;
-  highComboEl.textContent = "x" + highCombo;
-}
-
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "#333";
-  for (let x = 0; x < canvas.width; x += gridSize) {
-    for (let y = 0; y < canvas.height; y += gridSize) {
-      ctx.strokeRect(x, y, gridSize, gridSize);
+function moveFoodRandomly() {
+  foodTimer = setInterval(() => {
+    if (!started) {
+      food = spawnFood();
+    } else {
+      clearInterval(foodTimer);
     }
-  }
+  }, 500);
+}
 
+function drawGrid() {
+  ctx.strokeStyle = "#222";
+  for (let i = 0; i <= count; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * grid, 0);
+    ctx.lineTo(i * grid, canvas.height);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, i * grid);
+    ctx.lineTo(canvas.width, i * grid);
+    ctx.stroke();
+  }
+}
+
+function drawSnake() {
   ctx.fillStyle = "white";
-  snake.forEach(s => ctx.fillRect(s.x * gridSize, s.y * gridSize, gridSize, gridSize));
+  snake.forEach((s) => {
+    ctx.fillRect(s.x * grid, s.y * grid, grid, grid);
+  });
+}
+
+function drawFood() {
+  ctx.fillStyle = "white";
   ctx.beginPath();
-  ctx.arc(food.x * gridSize + gridSize/2, food.y * gridSize + gridSize/2, gridSize/3, 0, 2 * Math.PI);
+  ctx.arc(food.x * grid + grid / 2, food.y * grid + grid / 2, grid / 3, 0, 2 * Math.PI);
   ctx.fill();
 }
 
-function move() {
-  if (dx === 0 && dy === 0) return;
+function update() {
+  velocity = nextVelocity;
+  const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
 
-  const head = { x: snake[0].x + dx, y: snake[0].y + dy };
-  if (head.x < 0 || head.y < 0 || head.x >= tileCount || head.y >= tileCount || snake.some(s => s.x === head.x && s.y === head.y)) {
-    gameOver = true;
-    setTimeout(() => {
-      if (combo > highCombo) {
-        highCombo = combo;
-        submitScore(highCombo);
-      }
-      resetGame();
-    }, 1000);
+  if (
+    head.x < 0 || head.y < 0 ||
+    head.x >= count || head.y >= count ||
+    snake.some((s) => s.x === head.x && s.y === head.y)
+  ) {
+    clearInterval(interval);
+    if (score > highscore) highscore = score;
+    updateHighscore();
+    updateRanking();
+    reset();
     return;
   }
 
   snake.unshift(head);
 
   if (head.x === food.x && head.y === food.y) {
-    combo++;
-    food = randomFood();
-    if (combo % 10 === 0) {
-      speed = Math.max(50, speed - 10);
+    score++;
+    food = spawnFood();
+    scoreDisplay.innerText = "combo x" + score;
+    if (score > highscore) {
+      highscore = score;
+      updateHighscore();
+    }
+    if (snake.length >= count * count) {
+      clearInterval(interval);
+      speed -= 10;
+      reset();
+      interval = setInterval(loop, isAccelerating ? speed / 2 : speed);
     }
   } else {
     snake.pop();
   }
-
-  updateUI();
 }
 
-async function submitScore(score) {
-  const now = new Date();
-  await addDoc(collection(db, "scores"), {
-    nickname: nickname,
-    score: score,
-    date: now.toISOString().split("T")[0]
-  });
-  loadRanking();
-}
-
-async function loadRanking() {
-  const q = query(collection(db, "scores"), orderBy("score", "desc"), limit(10));
-  const querySnapshot = await getDocs(q);
-  rankingEl.innerHTML = "";
-  let index = 1;
-  querySnapshot.forEach(doc => {
-    const { nickname, score, date } = doc.data();
-    const li = document.createElement("li");
-    li.innerHTML = `#${index} - ${nickname.padEnd(12, "_")} : x${score} <span class="date">${date}</span>`;
-    rankingEl.appendChild(li);
-    index++;
-  });
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawGrid();
+  drawSnake();
+  drawFood();
 }
 
 function loop() {
-  if (!gameOver) {
-    move();
-    draw();
-  }
-  setTimeout(loop, speed);
+  update();
+  draw();
 }
 
-document.addEventListener("keydown", e => {
+function updateHighscore() {
+  highscoreDisplay.innerText = "highest combo: x" + highscore;
+}
+
+function updateRanking() {
+  if (highscore === 0) return;
+
+  let existing = topScores.find(entry => entry.name === player);
+  if (existing) {
+    if (highscore > existing.score) {
+      existing.score = highscore;
+    }
+  } else {
+    topScores.push({ name: player, score: highscore });
+  }
+
+  topScores.sort((a, b) => b.score - a.score);
+  topScores = topScores.slice(0, 10);
+
+  ranking.innerHTML = "";
+  topScores.forEach((entry, index) => {
+    const name = entry.name.padEnd(14, ' ');
+    const score = `x${entry.score}`.padStart(4, ' ');
+    const li = document.createElement("li");
+    li.innerText = `#${(index + 1)} - ${name}: ${score}`;
+    ranking.appendChild(li);
+  });
+}
+
+function reset() {
+  snake = [{ x: 10, y: 10 }];
+  velocity = { x: 0, y: 0 };
+  nextVelocity = { x: 0, y: 0 };
+  food = spawnFood();
+  score = 0;
+  speed = baseSpeed;
+  scoreDisplay.innerText = "combo x0";
+  interval = setInterval(loop, isAccelerating ? speed / 2 : speed);
+}
+
+function start() {
+  reset();
+  moveFoodRandomly();
+}
+
+window.addEventListener("keydown", (e) => {
   const key = e.key.toLowerCase();
-  if (key === "arrowup" || key === "w") { if (dy === 0) { dx = 0; dy = -1; } }
-  if (key === "arrowdown" || key === "s") { if (dy === 0) { dx = 0; dy = 1; } }
-  if (key === "arrowleft" || key === "a") { if (dx === 0) { dx = -1; dy = 0; } }
-  if (key === "arrowright" || key === "d") { if (dx === 0) { dx = 1; dy = 0; } }
+  if (!started && ["arrowup", "arrowdown", "arrowleft", "arrowright", "w", "a", "s", "d"].includes(key)) {
+    started = true;
+  }
+  if ((key === "arrowup" || key === "w") && velocity.y === 0) nextVelocity = { x: 0, y: -1 };
+  if ((key === "arrowdown" || key === "s") && velocity.y === 0) nextVelocity = { x: 0, y: 1 };
+  if ((key === "arrowleft" || key === "a") && velocity.x === 0) nextVelocity = { x: -1, y: 0 };
+  if ((key === "arrowright" || key === "d") && velocity.x === 0) nextVelocity = { x: 1, y: 0 };
+
+  if (key === " ") {
+    if (!isAccelerating) {
+      isAccelerating = true;
+      clearInterval(interval);
+      interval = setInterval(loop, speed / 2);
+    }
+  }
 });
 
-window.startGame = () => {
-  nickname = nicknameInput.value.trim().substring(0, 12);
-  if (!nickname) return;
-  startScreen.style.display = "none";
-  resetGame();
-  loadRanking();
-};
-
-loop();
+window.addEventListener("keyup", (e) => {
+  if (e.key === " ") {
+    isAccelerating = false;
+    clearInterval(interval);
+    interval = setInterval(loop, speed);
+  }
+});

@@ -1,7 +1,6 @@
-
 body {
   margin: 0;
-  background-color: #000;
+  background: #000;
   font-family: monospace;
   color: white;
   display: flex;
@@ -12,99 +11,97 @@ body {
 
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   gap: 3rem;
 }
 
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 canvas {
-  background-color: #000;
+  background: #000;
   border: 3px solid white;
   box-shadow: 0 0 10px #fff2;
 }
 
+#score, #highscore {
+  font-size: 1rem;
+  color: #aaa;
+  margin: 0.25rem 0;
+}
+
 .scoreboard {
-  min-width: 160px;
-  font-size: 14px;
+  min-width: 180px;
 }
 
 .scoreboard h3 {
-  margin: 0.5rem 0 0.5rem;
+  margin-bottom: 1rem;
   font-weight: normal;
   text-transform: lowercase;
   color: #ccc;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 #ranking {
   padding: 0;
   list-style: none;
-  margin-bottom: 1rem;
+  font-family: monospace;
 }
 
 #ranking li {
-  display: flex;
-  justify-content: space-between;
   font-size: 0.95rem;
   margin-bottom: 0.25rem;
   color: #ddd;
+  white-space: pre;
 }
 
-#ranking li .date {
-  color: #555;
-  font-size: 0.75rem;
-  margin-left: 0.5rem;
-}
-
-.back-home {
-  margin-top: 1rem;
-  font-size: 0.8rem;
-}
-
-.back-home a {
-  color: #888;
-  text-decoration: none;
-}
-
-.start-screen {
+.modal {
   position: fixed;
-  background: rgba(0,0,0,0.95);
-  color: white;
-  font-family: monospace;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
-.start-box {
+.modal-content {
+  background: #111;
+  padding: 2rem;
+  border: 2px solid white;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
-.start-box input {
-  padding: 5px;
-  font-size: 1rem;
-  max-width: 200px;
+
+.back-home {
+  display: inline-block;
+  margin-top: 2rem;
+  text-decoration: none;
+  color: #888;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+.back-home:hover {
+  color: white;
 }
 
-.start-box button {
-  font-size: 1rem;
-  padding: 5px 10px;
-  cursor: pointer;
-}
 
-@media (max-width: 600px) {
-  .container {
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-  canvas {
-    width: 90vw;
-    height: 90vw;
-  }
+.back-home {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  text-decoration: none;
+  color: #888;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+.back-home:hover {
+  color: white;
 }

@@ -1,32 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>snake</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="start-screen" id="startScreen">
-    <div class="start-box">
-      <label for="nickname">your nickname:</label>
-      <input type="text" id="nickname" maxlength="12" autocomplete="off" />
-      <button onclick="startGame()">start</button>
-    </div>
-  </div>
   <div class="container">
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="left">
+      <div id="score">combo x0</div>
+      <div id="highscore">highest combo: x0</div>
+      <canvas id="game" width="600" height="600"></canvas>
+    </div>
     <div class="scoreboard">
-      <h3>combo</h3>
-      <div id="combo">x0</div>
-      <h3>highest combo</h3>
-      <div id="highCombo">x0</div>
-      <h3>top 10</h3>
-      <ul id="ranking"></ul>
-      <div class="back-home"><a href="/">← back home</a></div>
+      <h3>top players</h3>
+      <ol id="ranking"></ol>
     </div>
   </div>
-  <script type="module" src="js/game.js"></script>
+  <a href="https://frack.one" class="back-home">back home</a>
+
+  <div id="name-modal" class="modal">
+    <div class="modal-content">
+      <label for="player-name">your nickname:</label>
+      <input type="text" id="player-name" maxlength="12" />
+      <button onclick="setNickname()">start</button>
+    </div>
+  </div>
+  <script src="js/game.js"></script>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) || (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+  </script>
 </body>
 </html>
