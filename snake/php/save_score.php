@@ -1,20 +1,36 @@
 <?php
-$host = "localhost";
-$dbname = "u917152523_kahoru";
-$username = "u917152523_admin";
-$password = "^eE0Vc2#";
+header('Content-Type: application/json; charset=utf-8');
+require __DIR__ . '/config.php';
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$name = isset($_POST['name']) ? strtolower(trim($_POST['name'])) : '';
+$score = isset($_POST['score']) ? intval($_POST['score']) : 0;
+if ($name === '' || $score <= 0) { echo json_encode(["ok"=>false]); exit; }
 
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+// ensure one row per nickname, keep the highest score
+// 1) check existing
+$stmt = $mysqli->prepare("SELECT id, score FROM scores WHERE name = ? LIMIT 1");
+$stmt->bind_param("s", $name);
+$stmt->execute();
+$stmt->bind_result($id, $oldScore);
+$exists = $stmt->fetch();
+$stmt->close();
 
-$nickname = $_POST['nickname'];
-$score = intval($_POST['score']);
-$date = date("d/m/y");
+if ($exists) {
+  if ($score > $oldScore) {
+    $stmt = $mysqli->prepare("UPDATE scores SET score = ?, date = CURDATE() WHERE id = ?");
+    $stmt->bind_param("ii", $score, $id);
+    $stmt->execute();
+    $stmt->close();
+  }
+  echo json_encode(["ok"=>true, "updated"=>$score > $oldScore]);
+  exit;
+}
 
-$stmt = $conn->prepare("INSERT INTO scores (nickname, score, date) VALUES (?, ?, ?)");
-$stmt->bind_param("sis", $nickname, $score, $date);
+// 2) insert new
+$stmt = $mysqli->prepare("INSERT INTO scores (name, score, date) VALUES (?, ?, CURDATE())");
+$stmt->bind_param("si", $name, $score);
 $stmt->execute();
 $stmt->close();
-$conn->close();
+
+echo json_encode(["ok"=>true, "inserted"=>true]);
 ?>

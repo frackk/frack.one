@@ -1,21 +1,18 @@
 <?php
-$host = "localhost";
-$dbname = "u917152523_kahoru";
-$username = "u917152523_admin";
-$password = "^eE0Vc2#";
+header('Content-Type: application/json; charset=utf-8');
+require __DIR__ . '/config.php';
 
-$conn = new mysqli($host, $username, $password, $dbname);
+// top 10 by highest score, one per nickname (in case there are legacy duplicates)
+$sql = "SELECT name, MAX(score) AS score, DATE_FORMAT(MAX(date), '%d/%m/%y') AS date_fmt
+        FROM scores
+        GROUP BY name
+        ORDER BY score DESC
+        LIMIT 10";
+$res = $mysqli->query($sql);
 
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
-
-$sql = "SELECT nickname, score, date FROM scores ORDER BY score DESC, id ASC LIMIT 10";
-$result = $conn->query($sql);
-
-$scores = array();
-while ($row = $result->fetch_assoc()) {
-    $scores[] = $row;
+$out = [];
+while ($row = $res->fetch_assoc()) {
+  $out[] = $row;
 }
-echo json_encode($scores);
-
-$conn->close();
+echo json_encode($out);
 ?>

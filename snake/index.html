@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>snake</title>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-    <div id="overlay">
-        <div class="overlay-content">
-            <input type="text" id="nicknameInput" placeholder="Enter your nickname" maxlength="20">
-            <button onclick="startGame()">Start</button>
-        </div>
+  <!-- start overlay -->
+  <div id="nickname-modal" class="modal">
+    <div class="modal-box">
+      <label for="nickname-input">your nickname:</label>
+      <input id="nickname-input" type="text" maxlength="12" autocomplete="off"/>
+      <button id="start-btn" type="button">start</button>
     </div>
-    <div class="container">
-        <div class="info">
-            <p>combo x<span id="combo">0</span></p>
-            <p>highest combo: x<span id="highCombo">0</span></p>
-        </div>
-        <canvas id="gameCanvas" width="500" height="500"></canvas>
-        <div class="right-panel">
-            <h4>top players</h4>
-            <div id="ranking"></div>
-            <a href="/" class="back-home">back home</a>
-        </div>
+  </div>
+
+  <div class="container">
+    <aside class="left-rail">
+      <div id="combo">combo x0</div>
+      <div id="highest">highest combo: x0</div>
+    </aside>
+
+    <div class="game-wrap">
+      <canvas id="game" width="600" height="600"></canvas>
+      
     </div>
-    <script src="js/game.js"></script>
+
+    <aside class="scoreboard">
+      <h3>top players</h3>
+      <ul id="ranking" class="mono"></ul>
+    </aside>
+  <a class="back-home" href="https://frack.one">back home</a>
+  </div>
+
+  <script src="js/game.js"></script>
 </body>
 </html>
