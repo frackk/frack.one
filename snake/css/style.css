@@ -18,7 +18,10 @@ canvas{background:#000; border:3px solid #fff; box-shadow:0 0 10px #fff2;}
 #ranking{list-style:none; padding:0; margin:0}
 #ranking li{white-space:pre; color:#ddd; font-size:0.95rem; margin:0 0 .25rem}
 #ranking .date{color:var(--dim); font-size:.8rem; margin-left:.5rem}
-.back-home{position:absolute; color:#666; text-decoration:none; font-size:.9rem; background:rgba(0,0,0,.4); padding:4px 6px; border-radius:6px;}
+.back-home{
+  position:absolute; color:#666; text-decoration:none; font-size:.9rem;
+  background:rgba(0,0,0,.4); padding:4px 6px; border-radius:6px;
+}
 .back-home:hover{color:#999}
 
 /* subtle grid hint */
@@ -40,7 +43,7 @@ canvas{background:#000; border:3px solid #fff; box-shadow:0 0 10px #fff2;}
 .mono{font-variant-ligatures:none}
 
 @media (max-width: 900px){
-  .container{position:relative; flex-direction:column; gap:1.2rem; align-items:center}
+  .container{flex-direction:column; gap:1.2rem; align-items:center}
   .left-rail{order:-1; display:flex; gap:1rem}
   canvas{width:92vw; height:92vw}
   .scoreboard{min-width:auto; width:92vw}

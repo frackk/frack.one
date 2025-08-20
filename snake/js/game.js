@@ -10,6 +10,7 @@ const highestEl = document.getElementById('highest');
 const modal = document.getElementById('nickname-modal');
 const input = document.getElementById('nickname-input');
 const startBtn = document.getElementById('start-btn');
+const backHomeLink = document.querySelector('.back-home');
 
 // gameplay constants
 const cell = 20; // grid size
@@ -17,7 +18,7 @@ const cols = Math.floor(canvas.width / cell);
 const rows = Math.floor(canvas.height / cell);
 
 // state
-let snake, dir, pendingDir, food, running, tickMs, speedLevel;
+let snake, dir, pendingDir, foods, running, tickMs, speedLevel;
 let combo = 0;
 let highestCombo = 0;
 let nick = '';
@@ -28,38 +29,57 @@ let accelerate = false;
 const randInt = (n) => Math.floor(Math.random()*n);
 const same = (a,b) => a.x===b.x && a.y===b.y;
 
+// foods logic (support 1 or sometimes 2 foods)
+function spawnFoods(teleport=false){
+  const want = Math.random() < 0.25 ? 2 : 1; // 25% chance to have 2
+  foods = [];
+  for (let i=0;i<want;i++){
+    foods.push(randFreeCell());
+  }
+  if (teleport && !startedMove){
+    clearTimeout(spawnFoods._t);
+    spawnFoods._t = setTimeout(()=>spawnFoods(true), 120); // faster pre-start teleport
+  }
+}
+
+// find a free cell not on snake or other foods
+function randFreeCell(){
+  let pos, tries=0;
+  do {
+    pos = { x: randInt(cols), y: randInt(rows) };
+    tries++; if (tries>5000) break;
+  } while (snake.some(s=> same(s,pos)) || (foods && foods.some(f=> same(f,pos))));
+  return pos;
+}
+
+// sfx (random on eat, low volume)
+const sfxFiles = [
+  'audio/fatality.wav','audio/bubble.wav','audio/mcbow.wav',
+  'audio/neverlose.wav','audio/skeet.wav','audio/cod.wav'
+];
+const sfx = sfxFiles.map(p=>{ const a=new Audio(p); a.volume=0.18; return a; });
+function playEatSfx(){
+  try{
+    const i = Math.floor(Math.random()*sfx.length);
+    if (sfx[i]) { sfx[i].currentTime = 0; sfx[i].play().catch(()=>{}); }
+  }catch(e){}
+}
+
 // init
 function init(){
   snake = [{x: Math.floor(cols/2), y: Math.floor(rows/2)}];
   dir = {x:0,y:0};
   pendingDir = null;
   combo = 0;
-  tickMs = 95; // a bit faster default as requested
+  tickMs = 85; // slightly faster default
   speedLevel = 0;
   startedMove = false;
-  spawnFood(true);
+  spawnFoods(true);
   updateHud();
   if (!running) loop();
 }
 
-// spawn food not on snake
-function spawnFood(teleport=false){
-  let pos;
-  let tries = 0;
-  do {
-    pos = { x: randInt(cols), y: randInt(rows) };
-    tries++; if (tries>5000) break; // safeguard
-  } while (snake.some(s=> same(s,pos)));
-  food = pos;
-
-  // teleporting star pre-start faster
-  if (teleport && !startedMove){
-    clearTimeout(spawnFood._t);
-    spawnFood._t = setTimeout(()=>spawnFood(true), 140); // faster teleport
-  }
-}
-
-// draw subtle grid + border snake + star food
+// draw subtle grid + foods + snake
 function draw(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
@@ -78,11 +98,15 @@ function draw(){
     ctx.stroke();
   }
 
-  // food (white star-like dot)
+  // foods (white star-like dots)
   ctx.fillStyle = '#fff';
-  ctx.beginPath();
-  ctx.arc(food.x*cell + cell/2, food.y*cell + cell/2, cell*0.25, 0, Math.PI*2);
-  ctx.fill();
+  if (Array.isArray(foods)){
+    for (const f of foods){
+      ctx.beginPath();
+      ctx.arc(f.x*cell + cell/2, f.y*cell + cell/2, cell*0.25, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
 
   // snake
   for (let i=0;i<snake.length;i++){
@@ -107,9 +131,7 @@ function step(){
 
   // collisions (walls or self)
   if (head.x<0 || head.y<0 || head.x>=cols || head.y>=rows || snake.some(s=> same(s,head))){
-    // on death, save highest combo if >0
     if (highestCombo>0) maybeSave(highestCombo);
-    // restart with same base speed, like v9 loop
     init();
     return;
   }
@@ -117,25 +139,36 @@ function step(){
   // advance
   snake.unshift(head);
 
-  // eat
-  if (same(head, food)){
-    combo++;
-    if (combo > highestCombo) highestCombo = combo;
-    updateHud();
-    // speed ramp when thresholds
-    if (combo>0 && combo%10===0 && tickMs>50){
-      tickMs -= 8; speedLevel++;
+  // eat check
+  let ate = false;
+  if (Array.isArray(foods)) {
+    for (let i=0;i<foods.length;i++) {
+      if (same(head, foods[i])) {
+        ate = true;
+        foods.splice(i,1);
+        combo++;
+        if (combo > highestCombo) highestCombo = combo;
+        updateHud();
+        playEatSfx();
+        break;
+      }
     }
-    spawnFood();
-    // check full map (win condition)
-    if (snake.length >= cols*rows){
-      // speed up and restart new round
-      tickMs = Math.max(40, tickMs-10);
-      init();
-      return;
+  }
+  if (ate) {
+    if (foods.length === 0) {
+      spawnFoods(false);
+    } else if (foods.length === 1 && Math.random() < 0.15) {
+      foods.push(randFreeCell());
     }
   } else {
     snake.pop();
+  }
+
+  // full map (win)
+  if (snake.length >= cols*rows){
+    tickMs = Math.max(40, tickMs-10);
+    init();
+    return;
   }
 }
 
@@ -177,7 +210,7 @@ function setNickname(){
   nick = v;
   modal.style.display = 'none';
   init();
-  fetchTop(); // load online top when starting
+  fetchTop();
   positionBackHome();
 }
 
@@ -190,7 +223,7 @@ async function maybeSave(score){
       body: new URLSearchParams({ name: nick, score: String(score) })
     });
     fetchTop();
-  }catch(err){ /* silent fail to not break game */ }
+  }catch(err){}
 }
 
 async function fetchTop(){
@@ -198,12 +231,10 @@ async function fetchTop(){
     const r = await fetch('php/get_scores.php');
     const data = await r.json();
     renderTop(Array.isArray(data)?data:[]);
-  }catch(err){
-    // if backend fails, keep current list
-  }
+  }catch(err){}
 }
 
-// render top with aligned lines and grey date; one slot per nickname
+// render top with aligned lines and grey date
 function renderTop(list){
   rankingEl.innerHTML = '';
   list.slice(0,10).forEach((row,i)=>{
@@ -223,10 +254,9 @@ function renderTop(list){
     li.textContent = lineText;
     li.appendChild(spanDate);
     rankingEl.appendChild(li);
-  positionBackHome();
   });
+  positionBackHome();
 }
-
 
 // position back-home to the right of the game, aligned to canvas bottom
 function positionBackHome(){
@@ -235,15 +265,13 @@ function positionBackHome(){
   const scoreboard = document.querySelector('.scoreboard');
   const sbRect = scoreboard.getBoundingClientRect();
   const contRect = container.getBoundingClientRect();
-  const link = document.querySelector('.back-home');
+  const link = backHomeLink;
   if (!link) return;
-  // left edge anchored to scoreboard left (right of game), slight inset
   const left = (sbRect.left - contRect.left) + 8;
-  // align vertically with bottom of canvas
   const top = (canvasRect.bottom - contRect.top) - link.offsetHeight - 8;
   link.style.left = left + 'px';
   link.style.top  = top + 'px';
 }
+
 window.addEventListener('resize', positionBackHome);
 setTimeout(positionBackHome, 0);
-

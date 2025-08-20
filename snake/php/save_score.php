@@ -7,7 +7,6 @@ $score = isset($_POST['score']) ? intval($_POST['score']) : 0;
 if ($name === '' || $score <= 0) { echo json_encode(["ok"=>false]); exit; }
 
 // ensure one row per nickname, keep the highest score
-// 1) check existing
 $stmt = $mysqli->prepare("SELECT id, score FROM scores WHERE name = ? LIMIT 1");
 $stmt->bind_param("s", $name);
 $stmt->execute();
@@ -26,7 +25,6 @@ if ($exists) {
   exit;
 }
 
-// 2) insert new
 $stmt = $mysqli->prepare("INSERT INTO scores (name, score, date) VALUES (?, ?, CURDATE())");
 $stmt->bind_param("si", $name, $score);
 $stmt->execute();

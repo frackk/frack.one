@@ -2,7 +2,6 @@
 header('Content-Type: application/json; charset=utf-8');
 require __DIR__ . '/config.php';
 
-// top 10 by highest score, one per nickname (in case there are legacy duplicates)
 $sql = "SELECT name, MAX(score) AS score, DATE_FORMAT(MAX(date), '%d/%m/%y') AS date_fmt
         FROM scores
         GROUP BY name
