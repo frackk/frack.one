@@ -1,5 +1,5 @@
-// snake v9 style + mysql backend (no firebase)
-// all-lowercase comments & ids per user's style
+// snake v9 style + mysql backend
+// all-lowercase comments & ids
 
 // canvas & ui
 const canvas = document.getElementById('game');
@@ -11,6 +11,15 @@ const modal = document.getElementById('nickname-modal');
 const input = document.getElementById('nickname-input');
 const startBtn = document.getElementById('start-btn');
 const backHomeLink = document.querySelector('.back-home');
+const speedHint = document.getElementById('speed-hint');
+
+let hintDismissed = false;
+function dismissHint(){
+  if (hintDismissed || !speedHint) return;
+  hintDismissed = true;
+  speedHint.classList.add('fade-out');
+  setTimeout(()=>{ if (speedHint) speedHint.style.display='none'; }, 480);
+}
 
 // gameplay constants
 const cell = 20; // grid size
@@ -98,7 +107,7 @@ function draw(){
     ctx.stroke();
   }
 
-  // foods (white star-like dots)
+  // foods
   ctx.fillStyle = '#fff';
   if (Array.isArray(foods)){
     for (const f of foods){
@@ -191,7 +200,7 @@ document.addEventListener('keydown', (e)=>{
   if (k==='f12' || (e.ctrlKey && e.shiftKey && (k==='i' || k==='j')) || (e.ctrlKey && k==='u')) {
     e.preventDefault(); e.stopPropagation(); return false;
   }
-  if (k===' ') accelerate = true;
+  if (k===' ') { accelerate = true; dismissHint(); }
 
   if ((k==='arrowup'||k==='w') && dir.y!==1) pendingDir = {x:0,y:-1};
   if ((k==='arrowdown'||k==='s') && dir.y!==-1) pendingDir = {x:0,y:1};
@@ -234,23 +243,24 @@ async function fetchTop(){
   }catch(err){}
 }
 
-// render top with aligned lines and grey date
+// render top with aligned columns and grey date
 function renderTop(list){
   rankingEl.innerHTML = '';
   list.slice(0,10).forEach((row,i)=>{
     const rank = i+1;
+    const rankStr = String(rank).padStart(2,' ');  // align #1 vs #10
     const nm = (row.name||'player').toLowerCase().slice(0,12);
+    const namePadded = nm.padEnd(14, ' ');        // fixed name column
     const pts = Number(row.score||0);
+    const scorePadded = ('x'+pts).padStart(3,' '); // align x3 vs x64
     const date = row.date_fmt || row.date || '';
-    const namePadded = nm.padEnd(14, ' ');
-    const scoreText = `x${pts}`;
-    const lineText = `#${rank} - ${namePadded}: ${scoreText}`;
+    const lineText = `#${rankStr} - ${namePadded} : ${scorePadded}`;
     const li = document.createElement('li');
     li.className = 'mono';
     li.style.whiteSpace = 'pre';
     const spanDate = document.createElement('span');
     spanDate.className = 'date';
-    spanDate.textContent = ` ${date}`;
+    spanDate.textContent = `  ${date}`;
     li.textContent = lineText;
     li.appendChild(spanDate);
     rankingEl.appendChild(li);
@@ -265,7 +275,7 @@ function positionBackHome(){
   const scoreboard = document.querySelector('.scoreboard');
   const sbRect = scoreboard.getBoundingClientRect();
   const contRect = container.getBoundingClientRect();
-  const link = backHomeLink;
+  const link = document.querySelector('.back-home');
   if (!link) return;
   const left = (sbRect.left - contRect.left) + 8;
   const top = (canvasRect.bottom - contRect.top) - link.offsetHeight - 8;

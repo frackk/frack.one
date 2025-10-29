@@ -24,6 +24,16 @@ canvas{background:#000; border:3px solid #fff; box-shadow:0 0 10px #fff2;}
 }
 .back-home:hover{color:#999}
 
+/* hint above the game */
+.speed-hint{
+  position:absolute;
+  top:-26px; left:50%; transform:translateX(-50%);
+  color:#999; font-size:.9rem; opacity:.9;
+  pointer-events:none; user-select:none;
+  transition:opacity .45s ease;
+}
+.speed-hint.fade-out{ opacity:0; }
+
 /* subtle grid hint */
 .grid-line{stroke:var(--grid); stroke-width:1}
 
