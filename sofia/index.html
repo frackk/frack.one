@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="./images/heart_love_21891.ico" />
+    <title>Para Sofi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <div class="background-blur background-blur-1"></div>
+    <div class="background-blur background-blur-2"></div>
+    <div class="background-blur background-blur-3"></div>
+
+    <main class="page-shell">
+        <section class="experience-shell" id="app-card"></section>
+    </main>
+
+    <template id="template-welcome">
+        <div class="screen screen-welcome fade-in">
+            <div class="eyebrow">frack.one/sofia</div>
+            <h1 class="title title-main">Hay algo acá para vos.</h1>
+            <p class="lead">
+                Pero antes de llegar, vas a tener que demostrar que realmente sos vos.
+            </p>
+            <p class="subtle-text">
+                No debería ser tan difícil... supongo.
+            </p>
+            <button class="primary-btn" id="start-quiz-btn">Empezar</button>
+        </div>
+    </template>
+
+    <template id="template-quiz">
+        <div class="screen screen-quiz fade-in">
+            <div class="quiz-centered-layout">
+                <div class="question-block question-block-centered">
+                    <div class="question-tag" id="question-tag">Elegí una opción</div>
+                    <h2 class="question-text" id="question-text"></h2>
+                </div>
+
+                <div class="answers-grid answers-grid-kahoot" id="answers-grid"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="template-loading">
+        <div class="screen screen-loading fade-in">
+            <div class="spinner"></div>
+            <p class="loading-text">Revisando recuerdos...</p>
+        </div>
+    </template>
+
+    <template id="template-result">
+        <div class="screen screen-result fade-in">
+            <div class="eyebrow">resultado</div>
+            <h2 class="title">Terminaste el quiz</h2>
+            <p class="result-errors" id="result-errors"></p>
+            <p class="result-message" id="result-message"></p>
+            <div class="result-actions" id="result-actions"></div>
+        </div>
+    </template>
+
+    <template id="template-secret">
+        <div class="screen screen-secret fade-in">
+            <div class="eyebrow">última prueba</div>
+            <h2 class="title">Pasaste las preguntas, pero como una prueba final, respondé esto:</h2>
+
+            <p class="secret-question">
+                Un año atrás, el 13 de Marzo de 2025 dimos un gran paso, un día utópico donde nuestro amor se oficializó.
+                <br />
+                <strong>¿En qué lugar exactamente fue?</strong>
+            </p>
+
+            <form id="secret-form" class="secret-form" autocomplete="off">
+                <input
+                    type="password"
+                    id="secret-input"
+                    class="secret-input"
+                    placeholder="Escribí tu respuesta..."
+                    autocomplete="new-password"
+                />
+                <button type="submit" class="primary-btn">Confirmar</button>
+            </form>
+
+            <p class="secret-feedback" id="secret-feedback"></p>
+        </div>
+    </template>
+
+    <template id="template-unlocked">
+        <div class="screen screen-memory fade-in">
+            <section class="memory-hero">
+                <div class="eyebrow">para sofia</div>
+
+                <h2 class="title memory-title">
+                    Un año de vos,
+                    <br />
+                    un año de nosotros.
+                </h2>
+
+                <p class="memory-intro">
+                    Si llegaste hasta acá, entonces sí eras vos.
+                    <br />
+                    Guardé esto para inmortalizar un pedacito de lo nuestro.
+                </p>
+
+                <div class="counter-card">
+                    <div class="counter-label">Desde el 13 de Marzo de 2025</div>
+
+                    <div class="counter-grid">
+                        <div class="counter-item">
+                            <span class="counter-number" id="counter-days">0</span>
+                            <span class="counter-text">días</span>
+                        </div>
+
+                        <div class="counter-item">
+                            <span class="counter-number" id="counter-hours">0</span>
+                            <span class="counter-text">horas</span>
+                        </div>
+
+                        <div class="counter-item">
+                            <span class="counter-number" id="counter-minutes">0</span>
+                            <span class="counter-text">minutos</span>
+                        </div>
+
+                        <div class="counter-item">
+                            <span class="counter-number" id="counter-seconds">0</span>
+                            <span class="counter-text">segundos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="timeline-section">
+                <div class="section-heading">
+                    <div class="eyebrow">línea del tiempo</div>
+                    <h3 class="section-title">Nuestro primer año</h3>
+                    <p class="section-copy">
+                        Un recorrido de Marzo a Marzo, con un pedacito de nosotros en cada mes.
+                    </p>
+                </div>
+
+                <div class="timeline" id="timeline-container"></div>
+            </section>
+
+            <section class="memory-links">
+                <div class="section-heading">
+                    <div class="eyebrow">cositas para vos</div>
+                    <h3 class="section-title">Abrí esto después</h3>
+                </div>
+
+                <!--city of stars-->>
+                <div class="memory-links-grid">
+                    <article class="memory-link-card">
+                        <h4>Una canción para vos</h4>
+                        <p>Te dejo esta canción, no se si te gusta mucho sinceramente, pero esta canción significa mucho para mí; cada vez que la escucho, lo único que hago es recordar momentos lindos con vos.</p>
+                        <a href="https://www.youtube.com/watch?v=v04Ni5WwDko" class="soft-link" target="_blank" rel="noopener noreferrer">escuchar</a>
+                    </article>
+
+                    <article class="memory-link-card">
+                        <h4>Otra cancioncita para vos</h4>
+                        <p>Esta canción ya la conccés muchísimo, pero, cuando la escucho, vienen a mi esos momentos donde la cantabamos juntos, me parece hermosa, la escucho siempre con mucho amor, así que te la dedico.</p>
+                        <a href="https://www.youtube.com/watch?v=6wBzR7zhA0g" class="soft-link" target="_blank" rel="noopener noreferrer">escuchar</a>
+                    </article>
+                </div>
+            </section>
+
+            <section class="letter-section">
+                <div class="section-heading">
+                    <h3 class="section-title">Para vos</h3>
+                </div>
+
+                <article class="letter-card">
+                    <p>Sofía, hace exactamente un año, en la madrugada de este día, estábamos vos y yo, solos, con una inmensa playa para nosotros dos, con el mar mas prendido que nunca, hace exactamente un año, la luna llena nos iluminaba tanto a vos y a mi, como también iluminaba a la arena y el mar, me acuerdo lo nervioso que estaba antes de pedírtelo, camino a la playa, lo nervioso que estaba cuando agarré tus manos, y lo muchísimo que brillaban tus hermosos ojos, hace exactamente un año te volví a decir todo lo que sentía por vos, pero sumando esta vez una pregunta que cambiaría nuestra historia para siempre, a partir de ese día mi vida se torno muchísimo mas feliz, porque a partir de ese día, estaba de novio con la persona que mas amo en este mundo.
+                    pasaron doce meses de esa noche, y me sigo acordando cada mínimo detalle de esa noche, me acuerdo de cada cosita linda que paso cada mes, a lo largo de este hermoso año, hice esa línea temporal para que quede guardado para siempre el paso a paso de nuestro primer año, el inicio de toda nuestra historia, hoy es un día muy especial, hoy damos un siguiente paso, hacer todo esto me hizo recordar, reflexionar y ver como nuestra relación, nuestra historia, avanzó día tras día, mes a mes, y como lo va a serguir haciendo, te amo con todo mi corazón Sofía, sos el amor de mi vida entera, cada segundo que pasa me enamoro mas y mas de vos, sos todo lo que siempre soñé tener, y ahora que te tengo, vivo un sueño todos los días, gracias por acompañarme tanto, por estar siempre ahí, prometo estar siempre para vos también, así concluye nuestro primer año juntos, nuestros primeros 365 días, nuestro primer verano, otoño, invierno y primavera, te amo con todo mi corazón, espero que mis palabras logren transmitir aunque sea un cinco porciento de todo lo que siento por vos, te amo mumina hermosa, con toda mi alma.</p>
+                    <p class="letter-signature">- Franco.</p>
+                </article>
+            </section>
+        </div>
+    </template>
+
+    <script src="./app.js"></script>
+</body>
+</html>
