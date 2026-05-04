@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="./coolstuff-ico.ico" />
+  <meta name="theme-color" content="#000000" />
+  <title>coolstuff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <a class="home-link" href="https://frack.one">home</a>
+
+  <main class="page">
+    <h1>coolstuff</h1>
+    <section class="grid" id="playlistGrid" aria-label="Spotify playlists"></section>
+    <p class="empty-note" id="emptyNote">no playlists loaded yet.</p>
+  </main>
+
+  <div class="modal" id="previewModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <p class="modal-title" id="modalTitle">preview</p>
+        <button class="close" type="button" aria-label="close preview" data-close-modal>&times;</button>
+      </div>
+      <iframe class="player-frame" id="spotifyFrame" title="Spotify playlist preview" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

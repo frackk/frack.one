@@ -1,0 +1,5 @@
+# Spotify private config
+coolstuff/api/spotify-config.php
+
+# Cache generado por la API
+coolstuff/api/cache/
